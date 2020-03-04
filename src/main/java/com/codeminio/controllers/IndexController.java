@@ -1,4 +1,4 @@
-package com.paroli.controllers;
+package com.codeminio.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.paroli.model.Usuario;
-import com.paroli.repositories.UsuarioRepository;
+import com.codeminio.model.Morador;
+import com.codeminio.repositories.MoradorRepository;
 
 @RestController/*Arquitetura REST*/
 @RequestMapping(value="/usuario")
 public class IndexController {
 
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private MoradorRepository usuarioRepository;
 	
 	/*Servico RESTful*/
 	@GetMapping(value = "/", produces="application/json")
@@ -30,13 +30,13 @@ public class IndexController {
 	}
 	
 	@GetMapping(value = "/usuarios/{id}", produces="application/json")
-	public ResponseEntity <Usuario>consultarUsuario(@PathVariable(value = "id") Long id) {
-		Optional<Usuario>usuario = usuarioRepository.findById(id);
+	public ResponseEntity <Morador>consultarUsuario(@PathVariable(value = "id") Long id) {
+		Optional<Morador>usuario = usuarioRepository.findById(id);
 		return new ResponseEntity(usuario.get(),HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/usuarios", produces="application/json")
-	public ResponseEntity <List<Usuario>>listarUsuarios() {
-		return new ResponseEntity<List<Usuario>>((List<Usuario>) usuarioRepository.findAll(),HttpStatus.OK);
+	public ResponseEntity <List<Morador>>listarUsuarios() {
+		return new ResponseEntity<List<Morador>>((List<Morador>) usuarioRepository.findAll(),HttpStatus.OK);
 	}
 }

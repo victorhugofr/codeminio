@@ -1,4 +1,4 @@
-package com.paroli.model;
+package com.codeminio.model;
 
 import java.io.Serializable;
 
@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Usuario implements Serializable {
+public class Morador implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -83,7 +83,7 @@ public class Usuario implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Usuario other = (Usuario) obj;
+		Morador other = (Morador) obj;
 		if (email == null) {
 			if (other.email != null)
 				return false;

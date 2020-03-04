@@ -1,4 +1,4 @@
-package com.paroli;
+package com.codeminio;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication
-@EntityScan(basePackages = {"com.paroli.model"})
-@ComponentScan(basePackages = {"com.paroli"})
-@EnableJpaRepositories(basePackages = {"com.paroli.repositories"})
+@EntityScan(basePackages = {"com.codeminio.model"})
+@ComponentScan(basePackages = {"com.codeminio"})
+@EnableJpaRepositories(basePackages = {"com.codeminio.repositories"})
 @EnableTransactionManagement
 @EnableWebMvc
 @RestController
 @EnableAutoConfiguration
-public class ParoliApplication {
+public class CodeminioApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ParoliApplication.class, args);
+		SpringApplication.run(CodeminioApplication.class, args);
 	}
 
 }

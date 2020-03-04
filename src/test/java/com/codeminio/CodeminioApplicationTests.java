@@ -1,10 +1,10 @@
-package com.paroli;
+package com.codeminio;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ParoliApplicationTests {
+class CodeminioApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -8,11 +8,11 @@
 		<version>2.2.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.paroli</groupId>
-	<artifactId>paroli</artifactId>
+	<groupId>com.codeminio</groupId>
+	<artifactId>codeminio</artifactId>
 	<packaging>war</packaging>
-	<name>paroli</name>
-	<description>Paroli em esperanto eh conversa</description>
+	<name>codeminio</name>
+	<description>Sistema de Gerenciamento de Condominios</description>
 
 	<properties>
 		<java.version>1.8</java.version>
