@@ -8,10 +8,9 @@ import javax.persistence.Entity;
 public class Morador extends Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private String apartamento;
 
-	
 	public String getApartamento() {
 		return apartamento;
 	}

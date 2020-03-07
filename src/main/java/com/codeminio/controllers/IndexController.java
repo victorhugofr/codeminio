@@ -16,27 +16,27 @@ import org.springframework.web.bind.annotation.RestController;
 import com.codeminio.model.Morador;
 import com.codeminio.repositories.MoradorRepository;
 
-@RestController/*Arquitetura REST*/
-@RequestMapping(value="/usuario")
+@RestController /* Arquitetura REST */
+@RequestMapping(value = "/usuario")
 public class IndexController {
 
 	@Autowired
 	private MoradorRepository usuarioRepository;
-	
-	/*Servico RESTful*/
-	@GetMapping(value = "/", produces="application/json")
-	public ResponseEntity init(@RequestParam(value = "nome", required = false)String nome) {
-		return new ResponseEntity("Olá REST Spring Boot",HttpStatus.OK);
+
+	/* Servico RESTful */
+	@GetMapping(value = "/", produces = "application/json")
+	public ResponseEntity init(@RequestParam(value = "nome", required = false) String nome) {
+		return new ResponseEntity("Olá REST Spring Boot", HttpStatus.OK);
 	}
-	
-	@GetMapping(value = "/usuarios/{id}", produces="application/json")
-	public ResponseEntity <Morador>consultarUsuario(@PathVariable(value = "id") Long id) {
-		Optional<Morador>usuario = usuarioRepository.findById(id);
-		return new ResponseEntity(usuario.get(),HttpStatus.OK);
+
+	@GetMapping(value = "/usuarios/{id}", produces = "application/json")
+	public ResponseEntity<Morador> consultarUsuario(@PathVariable(value = "id") Long id) {
+		Optional<Morador> usuario = usuarioRepository.findById(id);
+		return new ResponseEntity(usuario.get(), HttpStatus.OK);
 	}
-	
-	@GetMapping(value = "/usuarios", produces="application/json")
-	public ResponseEntity <List<Morador>>listarUsuarios() {
-		return new ResponseEntity<List<Morador>>((List<Morador>) usuarioRepository.findAll(),HttpStatus.OK);
+
+	@GetMapping(value = "/usuarios", produces = "application/json")
+	public ResponseEntity<List<Morador>> listarUsuarios() {
+		return new ResponseEntity<List<Morador>>((List<Morador>) usuarioRepository.findAll(), HttpStatus.OK);
 	}
 }

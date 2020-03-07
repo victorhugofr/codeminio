@@ -11,19 +11,18 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	private String email;
-	
-	private String nome;
-	
-	private String senha;
-	
-	private String login;
-	
-	private String CPF;
-	
-	private String telefone;
 
+	private String nome;
+
+	private String cpf;
+
+	private String email;
+
+	private String senha;
+
+	private String login;
+
+	private String telefone;
 
 	public Long getId() {
 		return id;
@@ -33,20 +32,28 @@ public class Usuario {
 		this.id = id;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getNome() {
 		return nome;
 	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getCpf() {
+		return this.cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getSenha() {
@@ -63,14 +70,6 @@ public class Usuario {
 
 	public void setLogin(String login) {
 		this.login = login;
-	}
-
-	public String getCPF() {
-		return CPF;
-	}
-
-	public void setCPF(String cPF) {
-		CPF = cPF;
 	}
 
 	public String getTelefone() {
@@ -111,7 +110,5 @@ public class Usuario {
 			return false;
 		return true;
 	}
-
-	
 
 }
