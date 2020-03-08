@@ -1,11 +1,12 @@
 package com.codeminio.model;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-@MappedSuperclass
+@Entity
 public class Usuario {
 
 	@Id
@@ -20,10 +21,11 @@ public class Usuario {
 	
 	private String login;
 	
-	private String CPF;
+	private String cpf;
 	
 	private String telefone;
 
+	private String codigoRecuperarSenha;
 
 	public Long getId() {
 		return id;
@@ -66,11 +68,11 @@ public class Usuario {
 	}
 
 	public String getCPF() {
-		return CPF;
+		return cpf;
 	}
 
 	public void setCPF(String cPF) {
-		CPF = cPF;
+		this.cpf = cPF;
 	}
 
 	public String getTelefone() {
@@ -79,6 +81,14 @@ public class Usuario {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public String getCodigoRecuperarSenha() {
+		return codigoRecuperarSenha;
+	}
+
+	public void setCodigoRecuperarSenha(String codigoRecuperarSenha) {
+		this.codigoRecuperarSenha = codigoRecuperarSenha;
 	}
 
 	@Override
@@ -112,6 +122,10 @@ public class Usuario {
 		return true;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", email=" + email + ", nome=" + nome + ", senha=" + senha + ", login=" + login
+				+ ", cpf=" + cpf + ", telefone=" + telefone + ", codigoRecuperarSenha=" + codigoRecuperarSenha + "]";
+	}
 
 }
