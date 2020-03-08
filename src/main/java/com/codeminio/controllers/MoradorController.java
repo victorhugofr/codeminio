@@ -32,7 +32,7 @@ public class MoradorController {
 		return new ResponseEntity("Olá REST Spring Boot",HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/moradores/{id}", produces="application/json")
+	@GetMapping(value = "/{id}", produces="application/json")
 	public ResponseEntity <Morador>consultarUsuario(@PathVariable(value = "id") Long id) {
 		Optional<Morador>usuario = moradorRepository.findById(id);
 		return new ResponseEntity(usuario.get(),HttpStatus.OK);
@@ -43,19 +43,19 @@ public class MoradorController {
 		return new ResponseEntity<List<Morador>>((List<Morador>) moradorRepository.findAll(),HttpStatus.OK);
 	}
 	
-	@PostMapping(value="/morador/cadastrar", produces = "application/json")
+	@PostMapping(value="/cadastrar", produces = "application/json")
 	public ResponseEntity<Morador> cadastrar(@RequestBody Morador usuario){
 		Morador usuarioSalvo=moradorRepository.save(usuario);
 		return new ResponseEntity<Morador>(usuarioSalvo, HttpStatus.OK);
 	}
 	
-	@PutMapping(value="/morador/atualizar", produces = "application/json")
+	@PutMapping(value="/atualizar", produces = "application/json")
 	public ResponseEntity<Morador> atualizar(@RequestBody Morador usuario){
 		Morador usuarioSalvo=moradorRepository.save(usuario);
 		return new ResponseEntity<Morador>(usuarioSalvo, HttpStatus.OK);
 	}
 	
-	@DeleteMapping(value = "/morador/deletar/{id}", produces = "application/text")
+	@DeleteMapping(value = "/deletar/{id}", produces = "application/text")
 	public String deletar (@PathVariable("id")Long id) {
 		moradorRepository.deleteById(id);
 		return "Morador deletado";
