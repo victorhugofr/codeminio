@@ -1,28 +1,31 @@
 package com.codeminio.model;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-@MappedSuperclass
+@Entity
 public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
-	private String nome;
-
-	private String cpf;
-
+	
 	private String email;
-
+	
+	private String nome;
+	
 	private String senha;
-
+	
 	private String login;
-
+	
+	private String cpf;
+	
 	private String telefone;
+
+	private String codigoRecuperarSenha;
 
 	public Long getId() {
 		return id;
@@ -32,28 +35,20 @@ public class Usuario {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return this.cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getSenha() {
@@ -72,12 +67,28 @@ public class Usuario {
 		this.login = login;
 	}
 
+	public String getCPF() {
+		return cpf;
+	}
+
+	public void setCPF(String cPF) {
+		this.cpf = cPF;
+	}
+
 	public String getTelefone() {
 		return telefone;
 	}
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public String getCodigoRecuperarSenha() {
+		return codigoRecuperarSenha;
+	}
+
+	public void setCodigoRecuperarSenha(String codigoRecuperarSenha) {
+		this.codigoRecuperarSenha = codigoRecuperarSenha;
 	}
 
 	@Override
@@ -109,6 +120,12 @@ public class Usuario {
 		} else if (!login.equals(other.login))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", email=" + email + ", nome=" + nome + ", senha=" + senha + ", login=" + login
+				+ ", cpf=" + cpf + ", telefone=" + telefone + ", codigoRecuperarSenha=" + codigoRecuperarSenha + "]";
 	}
 
 }
