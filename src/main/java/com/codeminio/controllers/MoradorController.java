@@ -25,6 +25,7 @@ public class MoradorController {
 	@Autowired
 	private MoradorRepository moradorRepository;
 
+
 	/* Servico RESTful */
 	@GetMapping(value = "/", produces = "application/json")
 	public ResponseEntity<List<Morador>> index() {
@@ -32,6 +33,7 @@ public class MoradorController {
 		List<Morador> moradores = (List<Morador>) moradorRepository.findAll();
 
 		return new ResponseEntity<List<Morador>>(moradores, HttpStatus.OK);
+
 	}
 
 	@PostMapping(value = "/", produces = "application/json")
@@ -41,6 +43,7 @@ public class MoradorController {
 
 		return new ResponseEntity<Morador>(novoMorador, HttpStatus.OK);
 	}
+
 
 	@GetMapping(value = "/{id}", produces = "application/json")
 	public ResponseEntity<Morador> show(@PathVariable(value = "id") Long id) {
@@ -72,7 +75,6 @@ public class MoradorController {
 
 	@DeleteMapping(value = "/{id}", produces = "application/text")
 	public String deletar(@PathVariable("id") Long id) {
-
 		moradorRepository.deleteById(id);
 
 		return "Morador deletado";
