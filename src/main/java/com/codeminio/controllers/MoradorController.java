@@ -64,7 +64,7 @@ public class MoradorController {
 			m.setNome(morador.getNome());
 			m.setSenha(morador.getSenha());
 			m.setLogin(morador.getLogin());
-			m.setCPF(morador.getCPF());
+			m.setCPF(morador.getCPF()); 
 			m.setTelefone(morador.getTelefone());
 			m.setApartamento(morador.getApartamento());
 			return moradorRepository.save(m);
