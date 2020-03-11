@@ -15,40 +15,55 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.codeminio.exceptions.ErroAutenticacao;
+import com.codeminio.exceptions.RegraNegocioException;
 import com.codeminio.model.Morador;
-import com.codeminio.repositories.MoradorRepository;
+import com.codeminio.model.Usuario;
+import com.codeminio.services.impl.MoradorServiceImpl;
 
 @RestController /* Arquitetura REST */
 @RequestMapping(value = "/morador")
 public class MoradorController {
 
 	@Autowired
-	private MoradorRepository moradorRepository;
+	private MoradorServiceImpl service;
 
 
+	@PostMapping("/autenticar")
+	public ResponseEntity autenticar(@RequestBody Morador morador) {
+		try {
+			Morador moradorAutenticado = service.autenticar(morador.getLogin(), morador.getSenha());
+			return ResponseEntity.ok(moradorAutenticado);
+		}catch(ErroAutenticacao e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
 	/* Servico RESTful */
-	@GetMapping(value = "/", produces = "application/json")
+	@GetMapping(value = "/listar", produces = "application/json")
 	public ResponseEntity<List<Morador>> index() {
 
-		List<Morador> moradores = (List<Morador>) moradorRepository.findAll();
+		List<Morador> moradores = service.listarMoradores();
 
 		return new ResponseEntity<List<Morador>>(moradores, HttpStatus.OK);
 
 	}
 
-	@PostMapping(value = "/", produces = "application/json")
-	public ResponseEntity<Morador> store(@RequestBody Morador morador) {
-
-		Morador novoMorador = moradorRepository.save(morador);
-
-		return new ResponseEntity<Morador>(novoMorador, HttpStatus.OK);
+	@PostMapping("/salvar")
+	public ResponseEntity cadastrar(@RequestBody Morador Morador) {
+		try {
+			Morador moradorSalvo= service.salvarMorador(Morador);
+			return new ResponseEntity(moradorSalvo,HttpStatus.CREATED);
+		}catch(RegraNegocioException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 
 
 	@GetMapping(value = "/{id}", produces = "application/json")
-	public ResponseEntity<Morador> show(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<Morador> procurar(@PathVariable(value = "id") Long id) {
 
-		Optional<Morador> morador = moradorRepository.findById(id);
+		Optional<Morador> morador = service.procurarPorId(id);
 
 		return new ResponseEntity<Morador>(morador.get(), HttpStatus.OK);
 	}
@@ -56,7 +71,7 @@ public class MoradorController {
 	@PutMapping(value = "/{id}", produces = "application/json")
 	public ResponseEntity<Morador> atualizar(@PathVariable(value = "id") Long id, @RequestBody Morador morador) {
 
-		Optional<Morador> antigoMorador = moradorRepository.findById(id);
+		Optional<Morador> antigoMorador = service.procurarPorId(id);
 
 		antigoMorador.map((m) -> {
 			System.out.println("teste");
@@ -67,7 +82,7 @@ public class MoradorController {
 			m.setCPF(morador.getCPF()); 
 			m.setTelefone(morador.getTelefone());
 			m.setApartamento(morador.getApartamento());
-			return moradorRepository.save(m);
+			return service.salvarMorador(m);
 		});
 
 		return new ResponseEntity<Morador>(antigoMorador.get(), HttpStatus.OK);
@@ -75,7 +90,7 @@ public class MoradorController {
 
 	@DeleteMapping(value = "/{id}", produces = "application/text")
 	public String deletar(@PathVariable("id") Long id) {
-		moradorRepository.deleteById(id);
+		service.deletarPorId(id);
 
 		return "Morador deletado";
 	}
