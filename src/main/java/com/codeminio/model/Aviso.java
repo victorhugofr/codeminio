@@ -4,14 +4,11 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
@@ -34,8 +31,7 @@ public class Aviso {
   @Column(columnDefinition = "TEXT")
   private String texto;
 
-  @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @ManyToOne(optional = false)
   @JoinColumn(name = "id_funcionario", nullable = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
   private Funcionario autor;
