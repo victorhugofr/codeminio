@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -32,6 +34,7 @@ public class Aviso {
   @Column(columnDefinition = "TEXT")
   private String texto;
 
+  @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "id_funcionario", nullable = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
