@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.codeminio.exceptions.ErroAutenticacao;
 import com.codeminio.exceptions.RegraNegocioException;
 import com.codeminio.model.Funcionario;
-import com.codeminio.model.Morador;
+
 import com.codeminio.services.impl.FuncionarioServiceImpl;
 
 @RestController /* Arquitetura REST */
@@ -28,17 +28,16 @@ public class FuncionarioController {
 	@Autowired
 	private FuncionarioServiceImpl service;
 
-
 	@PostMapping("/autenticar")
 	public ResponseEntity autenticar(@RequestBody Funcionario funcionario) {
 		try {
 			Funcionario funcionarioAutenticado = service.autenticar(funcionario.getLogin(), funcionario.getSenha());
 			return ResponseEntity.ok(funcionarioAutenticado);
-		}catch(ErroAutenticacao e) {
+		} catch (ErroAutenticacao e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
+
 	/* Servico RESTful */
 	@GetMapping(value = "/listar", produces = "application/json")
 	public ResponseEntity<List<Funcionario>> index() {
@@ -52,13 +51,12 @@ public class FuncionarioController {
 	@PostMapping("/salvar")
 	public ResponseEntity cadastrar(@RequestBody Funcionario Funcionario) {
 		try {
-			Funcionario funcionarioSalvo= service.salvarFuncionario(Funcionario);
-			return new ResponseEntity(funcionarioSalvo,HttpStatus.CREATED);
-		}catch(RegraNegocioException e) {
+			Funcionario funcionarioSalvo = service.salvarFuncionario(Funcionario);
+			return new ResponseEntity(funcionarioSalvo, HttpStatus.CREATED);
+		} catch (RegraNegocioException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-
 
 	@GetMapping(value = "/{id}", produces = "application/json")
 	public ResponseEntity<Funcionario> procurar(@PathVariable(value = "id") Long id) {
@@ -69,7 +67,8 @@ public class FuncionarioController {
 	}
 
 	@PutMapping(value = "/{id}", produces = "application/json")
-	public ResponseEntity<Funcionario> atualizar(@PathVariable(value = "id") Long id, @RequestBody Funcionario funcionario) {
+	public ResponseEntity<Funcionario> atualizar(@PathVariable(value = "id") Long id,
+			@RequestBody Funcionario funcionario) {
 
 		Optional<Funcionario> antigoFuncionario = service.procurarPorId(id);
 
@@ -79,7 +78,7 @@ public class FuncionarioController {
 			m.setNome(funcionario.getNome());
 			m.setSenha(funcionario.getSenha());
 			m.setLogin(funcionario.getLogin());
-			m.setCPF(funcionario.getCPF()); 
+			m.setCPF(funcionario.getCPF());
 			m.setTelefone(funcionario.getTelefone());
 			return service.salvarFuncionario(m);
 		});

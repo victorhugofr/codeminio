@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
 
 @Entity
 public class Usuario {
@@ -12,17 +11,17 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	private String email;
-	
+
 	private String nome;
-	
+
 	private String senha;
-	
+
 	private String login;
-	
+
 	private String cpf;
-	
+
 	private String telefone;
 
 	private String codigoRecuperarSenha;

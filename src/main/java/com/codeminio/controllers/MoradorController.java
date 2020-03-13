@@ -28,17 +28,16 @@ public class MoradorController {
 	@Autowired
 	private MoradorServiceImpl service;
 
-
 	@PostMapping("/autenticar")
 	public ResponseEntity autenticar(@RequestBody Morador morador) {
 		try {
 			Morador moradorAutenticado = service.autenticar(morador.getLogin(), morador.getSenha());
 			return ResponseEntity.ok(moradorAutenticado);
-		}catch(ErroAutenticacao e) {
+		} catch (ErroAutenticacao e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
+
 	/* Servico RESTful */
 	@GetMapping(value = "/listar", produces = "application/json")
 	public ResponseEntity<List<Morador>> index() {
@@ -52,13 +51,12 @@ public class MoradorController {
 	@PostMapping("/salvar")
 	public ResponseEntity cadastrar(@RequestBody Morador Morador) {
 		try {
-			Morador moradorSalvo= service.salvarMorador(Morador);
-			return new ResponseEntity(moradorSalvo,HttpStatus.CREATED);
-		}catch(RegraNegocioException e) {
+			Morador moradorSalvo = service.salvarMorador(Morador);
+			return new ResponseEntity(moradorSalvo, HttpStatus.CREATED);
+		} catch (RegraNegocioException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-
 
 	@GetMapping(value = "/{id}", produces = "application/json")
 	public ResponseEntity<Morador> procurar(@PathVariable(value = "id") Long id) {
@@ -74,12 +72,11 @@ public class MoradorController {
 		Optional<Morador> antigoMorador = service.procurarPorId(id);
 
 		antigoMorador.map((m) -> {
-			System.out.println("teste");
 			m.setEmail(morador.getEmail());
 			m.setNome(morador.getNome());
 			m.setSenha(morador.getSenha());
 			m.setLogin(morador.getLogin());
-			m.setCPF(morador.getCPF()); 
+			m.setCPF(morador.getCPF());
 			m.setTelefone(morador.getTelefone());
 			m.setApartamento(morador.getApartamento());
 			return service.salvarMorador(m);
