@@ -37,15 +37,42 @@ public class MoradorServiceImpl implements MoradorService {
 	@Override
 	@Transactional
 	public Morador salvarMorador(Morador morador) {
+		validarNome(morador.getNome());
+		validarApartamento(morador.getApartamento());
 		validarLogin(morador.getLogin());
+		validarCPF(morador.getCPF());
 		return repository.save(morador);
 	}
 
+	private void validarApartamento(String apartamento) {
+		if(apartamento==null)
+			throw new RegraNegocioException("Apartamento é obrigatorio");
+	}
+	private void validarNome(String nome) {
+		if(nome==null) {
+			throw new RegraNegocioException("Nome é obrigatorio");
+		}
+		
+	}
 	@Override
-	public void validarLogin(String email) {
-		boolean existe =repository.existsByEmail(email);
-		if(existe) {
-			throw new RegraNegocioException("Já existe um morador cadastrado com este login.");
+	public void validarLogin(String login){
+		if(login==null) {
+			throw new RegraNegocioException("Login é obrigatorio");
+		}
+		Optional<Morador> moradores = procurarPorLogin(login);
+		if(moradores.isPresent()) {
+			throw new RegraNegocioException("Já existe um morador cadastrado com este Login.");
+		}
+	}
+	
+	@Override
+	public void validarCPF(String cpf) {
+		if(cpf==null) {
+			throw new RegraNegocioException("CPF é obrigatorio");
+		}
+		Optional<Morador>moradores = procurarPorCPF(cpf);
+		if(moradores.isPresent()) {
+			throw new RegraNegocioException("Já existe um morador cadastrado com este CPF.");
 		}
 	}
 	
@@ -57,6 +84,14 @@ public class MoradorServiceImpl implements MoradorService {
 		return repository.findById(id);
 	}
 
+	public Optional<Morador> procurarPorLogin(String login){
+		return repository.findByLogin(login);
+	}
+	
+	public Optional<Morador> procurarPorCPF(String cpf){
+		return repository.findByCPF(cpf);
+	}
+	
 	public void deletarPorId(Long id) {
 		repository.deleteById(id);
 	}
